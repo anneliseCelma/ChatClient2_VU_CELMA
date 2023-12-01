@@ -23,5 +23,17 @@ public class EcouteurListeConnectes extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent evt) {
         //à compléter
+    	
+    	if (evt.getClickCount()==2) {
+    		JList<?> liste = (JList<?>) evt.getSource();
+    		
+    		int i = liste.locationToIndex(evt.getPoint());
+    		
+//    		if (i != -1) {
+    			String alias = (String) liste.getModel().getElementAt(i);
+    			clientChat.envoyer("JOIN "+ alias);
+    
+//    		}
+    	}
     }
 }

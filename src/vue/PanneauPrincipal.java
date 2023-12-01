@@ -4,9 +4,11 @@ import com.chat.client.ClientChat;
 import controleur.EcouteurChatPrive;
 import controleur.EcouteurChatPublic;
 import controleur.EcouteurListeConnectes;
+import controleur.EcouteurInvitations;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class PanneauPrincipal  extends JPanel {
     private DefaultListModel<String> connectes;
     private JList<String> jlConnectes;
     private PanneauChat panneauChatPublic;
+    private PanneauChatPrive panneauChatPrive;
     private PanneauInvitations panneauInvitations;
     private JDesktopPane bureau;
     private Map<String, PanneauChatPrive> panneauxPrives;
@@ -35,10 +38,20 @@ public class PanneauPrincipal  extends JPanel {
 
         EcouteurChatPublic ecouteurChatPublic = new EcouteurChatPublic(clientChat, panneauChatPublic);
         panneauChatPublic.setEcouteur(ecouteurChatPublic);
+        
 
         panneauInvitations = new PanneauInvitations();
 
+        EcouteurInvitations ecouteurInvitations = new EcouteurInvitations(clientChat, panneauInvitations);
+        this.panneauInvitations.setEcouteur(ecouteurInvitations);
+        
         panneauxPrives = new HashMap<>();
+        
+        PanneauChatPrive pc = new PanneauChatPrive();
+    
+        pc.add(pc.champDeSaisie);
+
+
 
         connectes = new DefaultListModel<>();
 
@@ -100,7 +113,7 @@ public class PanneauPrincipal  extends JPanel {
         PanneauChatPrive pc = new PanneauChatPrive();
         this.retirerInvitationRecue(alias);
 
-        pc.setEcouteur(new EcouteurChatPrive(alias,this.clientChat,pc));
+       pc.setEcouteur(new EcouteurChatPrive(alias,this.clientChat,pc, pc));
 
         panneauxPrives.put(alias,pc);
 
@@ -115,6 +128,15 @@ public class PanneauPrincipal  extends JPanel {
         String message = alias+">>"+msg;
         System.out.println("PRIVÉ : "+alias+">>"+msg);
         //à compléter
+        
+        PanneauChatPrive panneauChatPrive=panneauxPrives.get(alias);
+        
+        if (panneauChatPrive !=null) {
+        	panneauChatPrive.ajouter(message);
+        }
+        else {
+        	System.out.println("Pas de chat privée existant avec "+ alias);
+        }
     }
 
     public void inviteEchecs(String alias) {

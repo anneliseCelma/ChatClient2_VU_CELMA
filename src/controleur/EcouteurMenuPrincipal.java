@@ -62,9 +62,12 @@ public class EcouteurMenuPrincipal implements ActionListener {
                                 int port = Integer.parseInt(pcs.getPortServeur());
                                 clientChat.setPortServeur(port);
                                 recommencer=false;
-                            } catch (NumberFormatException exp) {
+                          
+                            }
+                            catch (NumberFormatException exp) {
                                 JOptionPane.showMessageDialog(fenetre, "Le port ("
                                                                 + pcs.getPortServeur() + ") doit être entier");
+                                recommencer=true;
                             }
                         }
                         else

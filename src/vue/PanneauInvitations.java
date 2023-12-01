@@ -1,10 +1,12 @@
 package vue;
-
+import controleur.EcouteurInvitations;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+
+import com.chat.client.ClientChat;
 /**
  *
  * @author Abdelmoumène Toudeft (Abdelmoumene.Toudeft@etsmtl.ca)
@@ -18,6 +20,7 @@ public class PanneauInvitations extends JPanel {
     private ActionListener ecouteur;
 
     public PanneauInvitations() {
+
         Font police = new Font("",Font.BOLD,15);
 
         invitationsRecues = new DefaultListModel<>();

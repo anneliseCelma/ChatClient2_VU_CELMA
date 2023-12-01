@@ -25,5 +25,20 @@ public class EcouteurChatPublic implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         //à compléter
+    	Object source = evt.getSource();
+    	
+    	if (source instanceof JTextField) {
+    		JTextField champDeSaisie= (JTextField)source;
+    		String texteSaisi = champDeSaisie.getText().trim();
+    		
+    		
+    		if (!texteSaisi.isEmpty()) {
+    			clientChat.envoyer("MSG "+ texteSaisi);
+				panneauChat.ajouter("MOI>> "+texteSaisi);
+				champDeSaisie.setText("");
+    			
+    		}
+    		
+    	}
     }
 }
