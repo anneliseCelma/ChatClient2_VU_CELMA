@@ -37,6 +37,8 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
         EtatPartieEchecs etat;
         MainFrame fenetre;
         FenetreEchecs fenetreEchecs = null;
+        
+        System.out.println("ON VERIFIE");
 
         if (source instanceof Connexion) {
             cnx = (Connexion) source;
@@ -139,6 +141,7 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                 case "CHESS":
                     alias = evenement.getArgument();
                     panneauPrincipal.inviteEchecs(alias);
+                    System.out.println("On est dans CHESS");
                     break;
                 case "DECLINE_CHESS":
                     alias = evenement.getArgument();
@@ -154,7 +157,11 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                     PanneauEchiquier panneauEchiquier = new PanneauEchiquier(client.getEtatPartieEchecs());
                     //à compléter
 
-                    panneauPrincipal.setFenetreEchecs(arg,fenetreEchecs);
+                    String titre = "Vous (" + str + ") contre " + arg;
+                    fenetreEchecs = new FenetreEchecs(panneauEchiquier, titre);
+                    fenetreEchecs.setVisible(true);
+                    
+                    panneauPrincipal.setFenetreEchecs(arg, fenetreEchecs);
                     break;
                 case "INVALID":
                     System.out.println(evenement.getArgument());

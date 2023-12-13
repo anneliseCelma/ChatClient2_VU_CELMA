@@ -1,12 +1,15 @@
 package com.chat.echecs;
 
+
+import observer.Observable;
+
 /**
  *
  * @author Abdelmoumène Toudeft (Abdelmoumene.Toudeft@etsmtl.ca)
  * @version 1.0
  * @since 2023-10-01
  */
-public class EtatPartieEchecs {
+public class EtatPartieEchecs extends Observable{
     private char[][] etatEchiquier = new char[8][8];
     public EtatPartieEchecs() {
         //Les pions :
@@ -49,7 +52,28 @@ public class EtatPartieEchecs {
     public boolean move(String deplacement) {
         boolean res = false;
         //à compléter
-
+        
+        System.out.println(deplacement);
+        if(deplacement != null) {
+        	int p1l, p1c, p2l, p2c;
+            char temp, init, finale;
+        	
+        	p1c = ((int) (deplacement.charAt(0)-'a'));
+        	p1l = 8-Character.getNumericValue(deplacement.charAt(1));
+        	p2c = ((int) (deplacement.charAt(3)-'a'));
+        	p2l = 8-Character.getNumericValue(deplacement.charAt(4));
+        	
+        	System.out.println("Position: " + p1l+" "+p1c+" "+p2l+" "+p2c);
+        	
+        	etatEchiquier[p2l][p2c] = etatEchiquier[p1l][p1c];
+        	etatEchiquier[p1l][p1c] = ' ';
+        	
+        	
+        	res = true;
+        	notifierObservateurs();
+        	return res;
+        }
+        
         return res;
     }
 
