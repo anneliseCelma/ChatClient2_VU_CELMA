@@ -65,8 +65,23 @@ public class EtatPartieEchecs extends Observable{
         	
         	System.out.println("Position: " + p1l+" "+p1c+" "+p2l+" "+p2c);
         	
+        	
+        	if(etatEchiquier[p1l][p1c] == 'p' || etatEchiquier[p1l][p1c] == 'P') {
+        		if(p2l == 0) {
+        			etatEchiquier[p2l][p2c] = 'D';
+                	etatEchiquier[p1l][p1c] = ' ';
+        		} else if(p2l == 7) {
+        			etatEchiquier[p2l][p2c] = 'd';
+        			etatEchiquier[p1l][p1c] = ' ';
+        		} else {
+        			etatEchiquier[p2l][p2c] = etatEchiquier[p1l][p1c];
+                	etatEchiquier[p1l][p1c] = ' ';
+        		}
+            	
+        	} else {
         	etatEchiquier[p2l][p2c] = etatEchiquier[p1l][p1c];
         	etatEchiquier[p1l][p1c] = ' ';
+        	}
         	
         	
         	res = true;

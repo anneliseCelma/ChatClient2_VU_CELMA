@@ -1,6 +1,7 @@
 package vue;
 
 import com.chat.client.Client;
+import com.chat.client.ClientChat;
 import com.chat.echecs.EtatPartieEchecs;
 import controleur.EcouteurJeuEchecs;
 import observer.Observable;
@@ -19,27 +20,30 @@ import java.awt.event.ActionListener;
 public class PanneauEchiquier extends JPanel implements Observateur{
 	private JButton[][] boutons = new JButton[8][8];
 	private EtatPartieEchecs partie;
+	private ClientChat client;
 	private ActionListener ecouteurJeuEchecs;
-	public PanneauEchiquier(EtatPartieEchecs partie) {
-		System.out.println("ON fait apparaitre l'echequier");
+	public PanneauEchiquier(EtatPartieEchecs partie, ClientChat client) {
 		this.partie = partie;
+		this.client = client;
 		JPanel p = new JPanel(new GridLayout(8,8));
 		this.setLayout(new BorderLayout());
 		char[][] echiquier = partie.getEtatEchiquier();
-		ecouteurJeuEchecs = new EcouteurJeuEchecs(null);
+		ecouteurJeuEchecs = new EcouteurJeuEchecs(client);
+		
 		for (int i=0;i<boutons.length;i++)
 			for (int j=0;j<boutons[i].length;j++) {
 				boutons[i][j] = new JButton();
 				boutons[i][j].setActionCommand((char)('a'+j)+""+(8-i));
 				if ((i+j)%2==0)
-					boutons[i][j].setBackground(Color.WHITE);
-				else
-					boutons[i][j].setBackground(Color.GRAY);
+                    boutons[i][j].setBackground(Color.WHITE);
+                else
+                    boutons[i][j].setBackground(Color.GRAY);
 				p.add(boutons[i][j]);
 				if (echiquier[i][j]!=' ')
 					boutons[i][j].setIcon(ServiceImages.getIconePourPiece(echiquier[i][j]));
 			}
 		this.add(p,BorderLayout.CENTER);
+		setEcouteurJeuEchecs(ecouteurJeuEchecs);
 		partie.ajouterObservateur(this);
 	}
 
